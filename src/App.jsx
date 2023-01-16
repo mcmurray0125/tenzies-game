@@ -26,26 +26,34 @@ export default function App() {
     const [tenzies, setTenzies] = React.useState(false);
     const [record, setRecord] = React.useState(() => JSON.parse(localStorage.getItem("record")) || "")
 
+    
+    function checkRecord() {
+        if (record === "") {
+            setRecord(count);
+        } else if (typeof record === "number") {
+            if (count < record) {
+                setRecord(count);
+            }
+        }
+    }
+    
     useEffect(() => {
-        checkRecord();
+        //update record when tenzie is won
         localStorage.setItem("record", JSON.stringify(record));
-      }, [tenzies]);
-
-      function checkRecord() {
-        setRecord(oldRecord => oldRecord = ""? oldRecord = count : oldRecord = 500)
-      }
-
-
+      }, [tenzies,record]);
 
     useEffect(() => {
         let winner = dice.every(die => die.isHeld && die.value === dice[0].value);
         if (winner) {
             setTenzies(true)
+            checkRecord();
         }
     })
     
     
     function rollDice() {
+        //the function of the button changes
+        //depending on if tenzies has been won or not
         if (!tenzies) {
             setDice(oldDice => oldDice.map(die => {
                 return die.isHeld? 
@@ -77,6 +85,7 @@ export default function App() {
     return (
         <main>
             {tenzies && <Confetti />}
+            <h3 className="record">Current Record: {record}</h3>
             <div className="game-text">
                 <h1>Tenzies</h1>
                 <p className="info">Roll until all dice are the same. Click each die to freeze it at its current number between rolls.</p>
