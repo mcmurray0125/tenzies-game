@@ -63,6 +63,7 @@ main {
   text-align: center;
 }
 
+
 @media screen and (min-width: 530px) and (min-height: 800px) {
   main {
     margin-top: 25vh;

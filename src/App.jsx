@@ -22,8 +22,20 @@ export default function App() {
     }
     
     const [dice, setDice] = React.useState(allNewDice);
-    
+    const [count, setCount] = React.useState(1);
     const [tenzies, setTenzies] = React.useState(false);
+    const [record, setRecord] = React.useState(() => JSON.parse(localStorage.getItem("record")) || "")
+
+    useEffect(() => {
+        checkRecord();
+        localStorage.setItem("record", JSON.stringify(record));
+      }, [tenzies]);
+
+      function checkRecord() {
+        setRecord(oldRecord => oldRecord = ""? oldRecord = count : oldRecord = 500)
+      }
+
+
 
     useEffect(() => {
         let winner = dice.every(die => die.isHeld && die.value === dice[0].value);
@@ -31,25 +43,24 @@ export default function App() {
             setTenzies(true)
         }
     })
-
-    function newGame() {
-        setDice(allNewDice);
-        setTenzies(false)
-    }
-
+    
+    
     function rollDice() {
         if (!tenzies) {
             setDice(oldDice => oldDice.map(die => {
                 return die.isHeld? 
-                    die :
-                    {...die, value: Math.floor(Math.random() * 6) + 1, id: nanoid()} 
+                die :
+                {...die, value: Math.floor(Math.random() * 6) + 1, id: nanoid()} 
             }) )
+            setCount(oldCount => oldCount + 1)
         }
         if (tenzies) {
             setDice(allNewDice);
             setTenzies(false);
+            setCount(1)
         }
     }
+    
     
     function holdDice(id) {
         setDice(oldDice => oldDice.map(die => {
@@ -74,6 +85,7 @@ export default function App() {
                 {diceElements}
             </div>
             <button id="game-button" className="roll-dice" onClick={rollDice}>{tenzies ? 'New Game' : 'Roll Dice'}</button>
+            <div className="counter">Rolls: {count}</div>
         </main>
     )
 }
