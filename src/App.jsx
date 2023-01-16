@@ -68,7 +68,7 @@ export default function App() {
             {tenzies && <Confetti />}
             <div className="game-text">
                 <h1>Tenzies</h1>
-                <p className="info">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+                <p className="info">Roll until all dice are the same. Click each die to freeze it at its current number between rolls.</p>
             </div>
             <div className="dice-container">
                 {diceElements}

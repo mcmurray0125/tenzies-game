@@ -19,6 +19,8 @@ main {
   padding: 20px;
   justify-content: space-around;
   align-items: center;
+  margin: auto;
+  margin-top: 10vh;
 }
 
 .dice-container {
@@ -59,4 +61,10 @@ main {
 }
 .game-text {
   text-align: center;
+}
+
+@media screen and (min-width: 530px) and (min-height: 800px) {
+  main {
+    margin-top: 25vh;
+  }
 }
