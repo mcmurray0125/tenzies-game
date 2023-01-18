@@ -5,11 +5,6 @@ import { nanoid } from "nanoid"
 import Confetti from "react-confetti";
 
 
-/**
- * Challenge: Allow the user to play a new game when the
- * button is clicked and they've already won
- */
-
 export default function App() {
     
     const allNewDice = () => {
@@ -50,7 +45,6 @@ export default function App() {
         }
     })
     
-    
     function rollDice() {
         //the function of the button changes
         //depending on if tenzies has been won or not
@@ -68,7 +62,6 @@ export default function App() {
             setCount(1)
         }
     }
-    
     
     function holdDice(id) {
         setDice(oldDice => oldDice.map(die => {
